@@ -1,0 +1,13 @@
+Requirement,Schema component / model element
+S1,registered and Deposit precondition
+S2,capacity and chamber-load invariant
+S3,capacity function and chamber-load invariant
+S4,owner mapping and Withdraw authorization
+S5,emergency override constraint and emergency authorization
+S6,temp and temperature invariant
+S7,temp and maintenanceMode invariant
+S8,maintenanceMode and temperature invariant
+S9,viability threshold and regeneration flag (requires extension)
+S10,annual withdrawal counter and quota constraint (constraints/constraints.md)
+S11,inspection result and Redeposit precondition
+S12,audit event record (requires operation-level audit logging)

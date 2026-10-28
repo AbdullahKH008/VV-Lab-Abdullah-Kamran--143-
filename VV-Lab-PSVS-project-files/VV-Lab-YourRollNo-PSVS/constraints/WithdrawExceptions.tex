@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{zed-csp}
+\begin{document}
+
+\begin{zed}
+REPORT ::= unknownBox | boxNotStored | chamberInMaintenance |
+           notOwner | quotaExceeded | released
+\end{zed}
+
+% These are interface-level exception schemas. They are intended to be
+% combined with the VaultState and the input declarations in operations.tex.
+
+\begin{schema}{WithdrawOK}
+\Delta VaultState\\
+d? : DEPOSITOR\\
+b? : BOX\\
+report! : REPORT
+\where
+b? \in \dom status\\
+status~b? = stored\\
+owner~b? = d?\\
+report! = released
+\end{schema}
+
+\begin{schema}{UnknownBox}
+\Xi VaultState\\
+d? : DEPOSITOR\\
+b? : BOX\\
+report! : REPORT
+\where
+b? \notin \dom status\\
+report! = unknownBox
+\end{schema}
+
+\begin{schema}{BoxNotStored}
+\Xi VaultState\\
+d? : DEPOSITOR\\
+b? : BOX\\
+report! : REPORT
+\where
+b? \in \dom status\\
+status~b? \ne stored\\
+report! = boxNotStored
+\end{schema}
+
+\begin{schema}{NotOwner}
+\Xi VaultState\\
+d? : DEPOSITOR\\
+b? : BOX\\
+report! : REPORT
+\where
+b? \in \dom owner\\
+owner~b? \ne d?\\
+report! = notOwner
+\end{schema}
+
+\end{document}

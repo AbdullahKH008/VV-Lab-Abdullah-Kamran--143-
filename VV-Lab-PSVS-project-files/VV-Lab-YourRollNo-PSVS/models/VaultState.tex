@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{zed-csp}
+\begin{document}
+
+\begin{zed}
+[DEPOSITOR, BOX, CHAMBER, SPECIES, PARTY]
+\end{zed}
+
+\begin{zed}
+STATUS ::= stored | withdrawn | quarantined
+\end{zed}
+
+\begin{schema}{VaultState}
+registered : \power DEPOSITOR\\
+owner : BOX \pfun DEPOSITOR\\
+location : BOX \pfun CHAMBER\\
+status : BOX \pfun STATUS\\
+species : BOX \pfun SPECIES\\
+capacity : CHAMBER \pfun \nat\\
+temp : CHAMBER \pfun \num\\
+maintenanceMode : \power CHAMBER
+\where
+\dom owner = \dom status\\
+\dom species = \dom status\\
+\{b : BOX | status~b = stored\} \subseteq \dom location\\
+\forall b : BOX | status~b = stored @ b \in \dom owner\\
+\forall b : BOX | status~b = stored @ b \in \dom location\\
+\forall c : CHAMBER @ \#\{b : BOX | status~b = stored \land location~b = c\} \leq capacity~c\\
+\forall c : CHAMBER | c \notin maintenanceMode @ temp~c \leq -18\\
+\forall c : CHAMBER | c \in maintenanceMode @ temp~c \leq 0
+\end{schema}
+
+\begin{schema}{InitVaultState}
+VaultState
+\where
+capacity = \{c_1 \mapsto 50000, c_2 \mapsto 50000,
+c_3 \mapsto 50000, c_4 \mapsto 20000\}\\
+\maintenanceMode = \emptyset\\
+\forall c : CHAMBER @ temp~c = -20\\
+owner = \emptyset\\
+location = \emptyset\\
+status = \emptyset\\
+species = \emptyset
+\end{schema}
+
+\end{document}

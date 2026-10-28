@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{zed-csp}
+\begin{document}
+
+% Operation schemas are written against VaultState in models/VaultState.tex.
+% Inputs are marked with ? and outputs with !. Primed variables denote post-state.
+
+\begin{schema}{Deposit}
+\Delta VaultState\\
+d? : DEPOSITOR\\
+b? : BOX\\
+c? : CHAMBER\\
+s? : SPECIES
+\where
+d? \in registered\\
+b? \notin \dom status\\
+c? \in \dom capacity\\
+\#\{x : BOX | status~x = stored \land location~x = c?\} < capacity~c?\\
+d? \in \dom owner'\\
+owner' = owner \cup \{b? \mapsto d?\}\\
+location' = location \cup \{b? \mapsto c?\}\\
+status' = status \cup \{b? \mapsto stored\}\\
+species' = species \cup \{b? \mapsto s?\}\\
+registered' = registered\\
+capacity' = capacity\\
+temp' = temp\\
+maintenanceMode' = maintenanceMode
+\end{schema}
+
+\begin{schema}{Withdraw}
+\Delta VaultState\\
+d? : DEPOSITOR\\
+b? : BOX
+\where
+b? \in \dom status\\
+status~b? = stored\\
+owner~b? = d?\\
+status' = status \oplus \{b? \mapsto withdrawn\}\\
+owner' = owner\\
+location' = location \setminus \{b? \mapsto location~b?\}\\
+species' = species\\
+registered' = registered\\
+capacity' = capacity\\
+temp' = temp\\
+maintenanceMode' = maintenanceMode
+\end{schema}
+
+\begin{schema}{Redeposit}
+\Delta VaultState\\
+b? : BOX\\
+d? : DEPOSITOR\\
+c? : CHAMBER\\
+s? : SPECIES\\
+inspectionPassed? : \bool
+\where
+status~b? = withdrawn\\
+owner~b? = d?\\
+inspectionPassed? = true\\
+c? \in \dom capacity\\
+\#\{x : BOX | status~x = stored \land location~x = c?\} < capacity~c?\\
+status' = status \oplus \{b? \mapsto stored\}\\
+location' = location \cup \{b? \mapsto c?\}\\
+owner' = owner\\
+species' = species\\
+registered' = registered\\
+capacity' = capacity\\
+temp' = temp\\
+maintenanceMode' = maintenanceMode
+\end{schema}
+
+\begin{schema}{StartMaintenance}
+\Delta VaultState\\
+c? : CHAMBER
+\where
+c? \in \dom temp\\
+maintenanceMode' = maintenanceMode \cup \{c?\}\\
+temp' = temp\\
+owner' = owner\\
+location' = location\\
+status' = status\\
+species' = species\\
+registered' = registered\\
+capacity' = capacity
+\end{schema}
+
+\begin{schema}{QueryChamberLoad}
+\Xi VaultState\\
+c? : CHAMBER\\
+load! : \nat
+\where
+c? \in \dom capacity\\
+load! = \#\{b : BOX | status~b = stored \land location~b = c?\}
+\end{schema}
+
+\end{document}

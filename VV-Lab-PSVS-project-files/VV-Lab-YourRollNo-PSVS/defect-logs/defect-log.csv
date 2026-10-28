@@ -1,0 +1,18 @@
+Defect ID,Req ID,Category,Description,Evidence,Severity,Suggested fix,Status
+D01,S2,Vagueness,Large number has no numeric meaning,The phrase large number is not measurable,Medium,Replace with a numeric capacity or define the intended scale,Open
+D02,S3,Incompleteness,Capacity is defined only for chambers 1 through 4,The requirement does not state whether additional chambers can exist,Low,State the complete set of chambers or say these are the only chambers,Open
+D03,S1,Incompleteness,Registration validation is unspecified,Only registered depositors are allowed but no validation rule is given,Medium,Define the registration record and validation check,Open
+D04,S4,Ambiguity,Ownership and withdrawal authorization are not distinguished from emergency release,Only that depositor may withdraw it,Medium,Define ordinary withdrawal and emergency override separately,Open
+D05,S5,Ambiguity,Emergency and requesting party are undefined,In an emergency and any requesting party are not defined,High,Define who declares an emergency and who may request release,Open
+D06,S4/S5,Contradiction,Normal withdrawal restriction may conflict with emergency release,Only that depositor may withdraw versus authority may release any box,High,Explicitly define S5 as a controlled exception to S4,Open
+D07,S6,Vagueness,Safe temperature has no threshold,Safe temperature is not quantified,High,Specify temperature limits and measurement units,Open
+D08,S7/S8,Contradiction,Temperature ceiling conflicts with maintenance warming,Never rise above -18°C versus may be warmed to 0°C,High,Define a maintenance exception and its permitted duration,Open
+D09,S8,Incompleteness,Maintenance duration and authorization are missing,During maintenance is not defined,Medium,Define authorized maintenance windows and entry/exit conditions,Open
+D10,S9,Vagueness,Low viability and promptly are not measurable,Neither viability threshold nor time limit is supplied,High,Define viability threshold and maximum flagging delay,Open
+D11,S10,Ambiguity,Yearly period is undefined,Per year may mean calendar or rolling year,Medium,Choose calendar year or rolling 12-month period,Open
+D12,S10,Incompleteness,Quota rounding and denominator are unspecified,20% of its boxes of a species lacks rounding and counting rules,High,Define eligible-box denominator and integer rounding rule,Open
+D13,S11,Incompleteness,Re-inspection acceptance criteria are missing,Only after re-inspection,Medium,Define inspection result and who may approve it,Open
+D14,S12,Non-verifiability,Good audit trail is not testable,Good has no fields, retention, or completeness rule,High,Specify events, fields, and retention duration,Open
+D15,S1/S4,Untraceability,Depositor registration and ownership are not tied to a record model,The requirements do not identify the authoritative registration/ownership data,Medium,Map registration and ownership to stored records and tests,Open
+D16,S3/S10,Incompleteness,No stated rule links capacity changes to withdrawal/deposit validation,Capacity limits and quota are stated but validation sequence is unspecified,Low,Specify that each operation checks applicable constraints before state change,Open
+D17,S5/S12,Incompleteness,Emergency releases do not explicitly require audit recording,Audit trail is broad and emergency release has no specific logging condition,Medium,Require emergency declaration and release details to be recorded,Open

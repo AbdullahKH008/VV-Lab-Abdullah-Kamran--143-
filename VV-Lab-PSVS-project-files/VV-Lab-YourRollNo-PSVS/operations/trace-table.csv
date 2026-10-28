@@ -1,0 +1,6 @@
+Step,Operation,State after operation
+1,Initial state,No boxes stored; chamber temperatures are -20°C; maintenance mode empty
+2,Deposit(b1,d1,c1,s1),b1 stored in c1; owner(b1)=d1; species(b1)=s1; load(c1)=1
+3,Deposit(b2,d1,c1,s1),b1 and b2 stored in c1; both owned by d1; load(c1)=2
+4,StartMaintenance(c1),c1 is in maintenance mode; box records unchanged; temperature remains -20°C
+5,Withdraw(d1,b1),b1 becomes withdrawn and is removed from stored location; b2 remains stored in c1; load(c1)=1
