@@ -1,2 +1,15 @@
-# VV-Lab-Abdullah-Kamran--143-
-This is a repository that is created for the Lab which is conducted before mids.  
+# VV-Lab-<Abdullah Kamran-143>-PSVS
+## Project Overview
+
+This repository contains the work for the Pre-Formal and Formal Specification and Verification lab.
+
+## Repository Structure
+
+- `requirements/`
+- `defect-logs/`
+- `abstractions/`
+- `models/`
+- `operations/`
+- `constraints/`
+- `proofs/`
+- `reports/`
